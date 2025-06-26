@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Card = ({username ,btntext="VisitME"}) => {
-    console.log({username ,btntext});
+    // console.log({username ,btntext});
   return (
     <> 
     

@@ -17,7 +17,8 @@ function App() {
     }
     else{
       // this will increment simultanoulsy and the cause react uses 
-      // setstates and updates the UI in patches 
+      // setstates and updates the UI in patches so the ui will update
+      // at once meaning 1 2 3 and so on
     //  setCounter(counter  + 1 )
     //  setCounter(counter  + 1 )
     //  setCounter(counter  + 1 )
