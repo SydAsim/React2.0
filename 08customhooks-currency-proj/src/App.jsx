@@ -26,12 +26,10 @@ function App() {
   }
 
   // Now convert the amount
-  
-  const convert = ()=>{
-    setConvertedAmount( amount * currencyInfo[to])
-
-  }
-
+  const convert = () => {
+  const result = amount * currencyInfo[to];
+  setConvertedAmount(parseFloat(result.toFixed(2))); // Rounds to 2 decimals
+};
 
 
     return (
