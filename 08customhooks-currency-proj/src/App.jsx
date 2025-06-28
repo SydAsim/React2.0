@@ -54,6 +54,7 @@ function App() {
                       {/* calling the InputBox Componenet */}
                         <InputBox
                             label="From"
+                            type="number"
                             amount={amount}
                             currencyOptions={options}
                             onCurrencyChange={(currency) => setAmount(currency)}
