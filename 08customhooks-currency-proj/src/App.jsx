@@ -27,6 +27,8 @@ function App() {
 
   // Now convert the amount
   const convert = () => {
+  //This syntax accesses the value in the currencyInfo object for the key specified by to.
+  //If to = "EUR", then currencyInfo[to] evaluates to 0.91.
   const result = amount * currencyInfo[to];
   setConvertedAmount(parseFloat(result.toFixed(2))); // Rounds to 2 decimals
 };
@@ -52,6 +54,7 @@ function App() {
                     <div className="w-full mb-1">
 
                       {/* calling the InputBox Componenet */}
+                      
                         <InputBox
                             label="From"
                             type="number"
