@@ -4,7 +4,6 @@ npm install -D tailwindcss@3.4.17
 npx tailwindcss init -p
 
 # in tailwind.config.js 
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -16,6 +15,8 @@ export default {
   },
   plugins: [],
 }
+
+
 ---
 
 # in index.css  write
