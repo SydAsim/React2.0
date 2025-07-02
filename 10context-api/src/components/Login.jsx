@@ -3,17 +3,20 @@ import UserContext from "../context/UserContext";
 
 
 
+
 const Login = () => {
     const [username , setUserName] = useState('')
     const [passward ,setPassward ] = useState('')
     
-    // now we will use the useContext Hook and pass the user context we have creaetd
+    // now we will use the useContext Hook and pass
+    //  the user context we have creaetd
+    // the setUser is the varible which we have already defined 
+    // in the UserContextProvider
     const {setUser} = useContext(UserContext)
 
     const handleSubmit = (e) =>{
         e.preventDefault()
         setUser({username , passward})
-
     }
 
   return (

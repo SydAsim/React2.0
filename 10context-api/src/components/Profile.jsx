@@ -2,7 +2,7 @@ import React from "react";
 import UserContext from "../context/UserContext";
 import {  useContext } from "react";
 
-// so here are easily accessing the username because we 
+// so here are easily accessing the user ,username because  
 // of the useContext which avoid Prop Drilling
 
 const Profile = () => {
