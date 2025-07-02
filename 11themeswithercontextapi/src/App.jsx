@@ -47,3 +47,7 @@ const darktheme = ()=>{
 }
 
 export default App
+
+// so by using useContext we are accessing the methods and provides 
+// by the ThemeProvider in the ThemeBtn so that is toggle is possiable to 
+// dark and light modes is made possiable 

@@ -1,10 +1,14 @@
 import React from 'react'
+// importing the custom hook useTheme 
+// to use the Context easily 
 import useTheme from '../contexts/Theme'
 export default function ThemeBtn() {
     
 
     const {themeMode , darktheme ,lightheme} = useTheme()
 
+    // so actually these functions are defined in the 
+    // App.jsx so that is we can use it 
     const onChangeBtn  = (e)=>{
         const darkModeStatus = e.currentTarget.checked
         if(darkModeStatus){
