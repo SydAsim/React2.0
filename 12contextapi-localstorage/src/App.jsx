@@ -8,6 +8,9 @@ function App() {
   const [todos, setTodos] = useState([])
 // 1: addTodo functionality
 //  we have to define the values same as it was in the context
+// We are creating a new todo where id is different, but we keep 
+// the rest (...todo) untouched. Then we add it before the previous 
+// todos (...prev).
   const addTodo = (todo) => {
     setTodos((prev) => [{id: Date.now(), ...todo}, ...prev] )
   }
@@ -25,10 +28,19 @@ function App() {
 
   
    // 3: deleteTodo functionality
+  //  Go through all previous todos. Remove the
+  //  one with the matching id, and keep the rest.
   const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+    setTodos((prev) => 
+      prev.filter((todo) => todo.id !== id))
   }
 
+
+// if its id matches the given id:
+// Keep everything the same (...prevTodo)
+// But toggle the completed value:
+// true → false or false → true
+// Else, just return the prevTodo as-is
   // 4: toggleComplete functionality
   const toggleComplete = (id) => {
     //console.log(id);
@@ -37,6 +49,8 @@ function App() {
       prevTodo.id === id ? { ...prevTodo, 
         completed: !prevTodo.completed } : prevTodo))
   }
+
+
 
   
   useEffect(() => {

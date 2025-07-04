@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import react, { useState } from 'react'
 import { useTodo } from '../contexts/TodoContext';
 
 function TodoForm() {

@@ -9,6 +9,7 @@ export const TodoContext = createContext({
             completed: false,
         }
     ],
+    // methods of todos 
     addTodo: (todo) => {},
     updateTodo: (id, todo) => {},
     deleteTodo: (id) => {},
@@ -16,8 +17,11 @@ export const TodoContext = createContext({
 })
 
 
+// creating  custom hook called useTodo
 export const useTodo = () => {
     return useContext(TodoContext)
 }
-
+// so the TodoProvider helps us consume its variables and methods
+// in the APP.jsx where we wrapit around the components and so that 
+// each components can use whatever method it needs 
 export const TodoProvider = TodoContext.Provider
