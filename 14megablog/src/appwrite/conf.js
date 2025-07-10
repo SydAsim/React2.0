@@ -1,5 +1,5 @@
 import { use, useId } from 'react';
-import config from './config/config.js'
+import config from '../config/config.js'
 import { Client, ID ,Storage ,Query,Databases  } from "appwrite";
 
 export class Services{

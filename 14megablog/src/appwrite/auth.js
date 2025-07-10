@@ -1,4 +1,4 @@
-import config from './config/config.js'
+import config from '../config/config.js'
 import { Client, Account, ID } from "appwrite";
 
 // for better code practice we are creating the class and then
@@ -12,7 +12,7 @@ export class AuthService {
     constructor() {
         this.client
             .setEndpoint(config.appwriteUrl)
-            .setEndpoint(config.appwritProjectId)
+            .setProject(config.appwritProjectId)
         this.account = new Account(this.client)
     }
     
@@ -45,17 +45,17 @@ export class AuthService {
         }
     }
 
-    async getCurrentUsers({}){
+    async getCurrentUsers(){
         try {
           return  await this.account.get()
             
         } catch (error) {
             throw error  
     }
-    return null;
+    
 }
 
-async logOut({}){
+async logout({}){
     try{
        return   await this.account.deleteSessions()
     }
@@ -68,6 +68,6 @@ async logOut({}){
 
 
 
-const authService = AuthService()
+const authService = new AuthService()
 
 export default authService;
