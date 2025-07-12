@@ -148,5 +148,5 @@ export class Services{
     }
 }
 
-const services = new Services()
-export default services
+const authService = new Services()
+export default authService

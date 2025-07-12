@@ -4,12 +4,18 @@ import { Client, Account, ID } from "appwrite";
 // for better code practice we are creating the class and then
 // we are defining the methods inside as an  object so that that 
 // object can access it methods simply by .
+
+// meaning whenever the class will be called the values 
+// will  be automatically be accessable through Object
+
 export class AuthService {
     client = new Client();
     account = new Account();
 
     
     constructor() {
+        // yani yay appwrite main hamaray Project kay 
+        // endpoints hain url and id 
         this.client
             .setEndpoint(config.appwriteUrl)
             .setProject(config.appwritProjectId)
@@ -41,7 +47,7 @@ export class AuthService {
            return await this.account.createEmailPasswordSession(email ,passward)
             
         } catch (error) {
-            console.log("Error in the Login function:",error);   
+            console.log("Error in the Login function in auth.js:",error);   
         }
     }
 

@@ -1,0 +1,11 @@
+// common in all Project in any tech stack we just define 
+// the styling width height etc 
+import React from 'react'
+
+const Container = ({children}) => {
+  return <div className='w-full max-w-7xl mx-auto px-4'>
+    {children}</div>;
+  
+}
+
+export default Container
