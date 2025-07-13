@@ -1,54 +1,43 @@
-//forwardref: when we make a login and we have an 
-// input field in it same input field for Login/pass etc
-// but we need access of state of the input field in the 
-// login page so we have give refrence to the Login page 
-// that is where the concept of the forwardRef comes in 
-// in React 19 it is the word forwardRef is  no longer
-//  used instead we use ref  
- 
+// forwardRef: When we create a component like <Input />
+// and want to access the input field (e.g., focus, value)
+// from the parent (like a Login page), we need a ref.
+//
+// But since Input is a custom component, React doesn’t 
+// pass ref into it directly. So we use forwardRef to 
+// forward the ref to the actual DOM input inside.
+//
+// In React 19, JSX improvements make many things easier,
+// but you still need to use React.forwardRef() when 
+// passing refs into custom components.
 
-import React , {useId} from 'react'
-function Input(
-{ 
-    label, 
-    type = 'text', 
-    className = '', 
-    ref,        // pull in the ref  
-    ...props    // everything else  
-  }
-) {
-    
+import React from "react";
+import { forwardRef } from "react"; 
+
+const Input = React.forwardRef(function Input({
+  label,
+  type = "text",
+  className = "",
+  ...props
+}, ref) {
   const id = useId();
-
   return (
-    <div className="w-full">
+    <div className='w-full'>
       {label && (
-        <label     
-        className="inline-block mb-1 pl-1"
-        htmlFor={id} >
-        {label}
+        <label className='inline-block mb-1 pl-1' htmlFor={id}>
+          {label}
         </label>
       )}
       <input
-        className={`
-          px-3 py-2 rounded-lg bg-white text-black 
-          outline-none focus:bg-gray-50 duration-200 
-          border border-gray-200 w-full ${className}
-        `}
-        id={id}
         type={type}
-        //forwardref example ref ko jo hum n ay user say liya
-        // hain as prop us ko yahan pass kardo 
-        // yahi woh cheez hain jo hamian refrence day ge apnay 
-        // parent component ka andhar 
-        // component alag hain lakin refrence waha chahiyan 
-        // thou ref waha say pass bhi kia jayga aur yaha say 
-        // pir state ka access liya jaye ga 
-        ref={ref}
-        {...props} // Baqi jo Properties hain
+        ref={ref}  // ✅ this ref is coming from forwardRef
+        {...props}
+        id={id}
+        className={`px-3 py-2 rounded-lg bg-white
+        text-black outline-none focus:bg-gray-50 
+        duration-200 border border-gray-200 w-full ${className}`}
       />
     </div>
   );
-}
+});
 
 export default Input;
