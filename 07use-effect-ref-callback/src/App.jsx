@@ -49,7 +49,8 @@ function App() {
   ,[password])
 
 
-
+// easily manage tasks like data fetching, subscribing to events,
+//  and cleaning up resources when a component unmounts.
   // in useEffect same callback ftn and dependency array 
   // but the dep array is used to track if any change oxxur run it again 
   useEffect(()=>{

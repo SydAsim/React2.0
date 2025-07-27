@@ -13,11 +13,12 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect (()=>{
-    authService.getCurrentUsers()
+    authService.getCurrentUser()
     .then((userData)=>{
       if(userData){
-        dispatch(login(userData))
-      }
+        console.log("🧠 Login userData before dispatch:", userData);
+      dispatch(login({userData}));
+  }
       else{
        dispatch(logout())
       }
@@ -43,7 +44,7 @@ function App() {
         </main>
         <Footer/>
       </div>
-      test</div>
+      </div>
   ) : null
 }
 

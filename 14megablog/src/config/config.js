@@ -1,7 +1,7 @@
 const config = {
     appwriteUrl: String(import.meta.env.VITE_APPWRITE_URL),
-    appwritProjectId: String(import.meta.env.VITE_APPWRITE_PROJECT_ID),
-    appwriteDatebaseId: String(import.meta.env.VITE_APPWRITE_DATABASE),
+    appwriteProjectId: String(import.meta.env.VITE_APPWRITE_PROJECT_ID),
+    appwriteDatabaseId: String(import.meta.env.VITE_APPWRITE_DATABASE_ID), // ✅ FIXED
     appwriteCollectionId: String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
     appwriteBucketId: String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
 }

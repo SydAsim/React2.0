@@ -1,4 +1,3 @@
-import { use, useId } from 'react';
 import config from '../config/config.js'
 import { Client, ID ,Storage ,Query,Databases  } from "appwrite";
 
@@ -7,46 +6,48 @@ export class Services{
     databases
     bucket 
     constructor(){
+         console.log("AUTH CONFIG:", config);
         this.client
             .setEndpoint(config.appwriteUrl)
-            .setEndpoint(config.appwritProjectId)
+            .setProject(config.appwriteProjectId)
             this.databases = new Databases(this.client)
             this.bucket = new Storage(this.client)
     }
 
-    async createPost ({title , slug  ,content ,featuredImage, status ,userID}){
-        try {
-            return await this.databases.createDocument(
-                config.appwriteDatebaseId,
-                config.appwriteCollectionId,
-                slug ,
-                {
-                    title,
-                    content,
-                    featuredImage,
-                    status,
-                    userID
+async createPost({ title, slug, content, featuredImage, status, userid }) {
+  try {
+    return await this.databases.createDocument(
+      config.appwriteDatabaseId,
+      config.appwriteCollectionId,
+      slug || ID.unique(),
+    //  ID.unique(),
 
-                }
-            )
-            
-        } catch (error) {
-            console.log("Error in createpost method" ,error);
+      {
+        title,
+        content,
+        featuredimage: featuredImage,
+        status,
+        userid, // ✅ now this matches what you're passing
+      }
+    );
+  } catch (error) {
+    console.log("❌ createPost error:", error.message);
+    return false;
+  }
+}
 
-        }
 
-    }
 
-    async updatePost (slug, {title,content ,featuredImage ,status,}){
+    async updatePost (slug, {title,content ,featuredImage ,status}){
         try {
             return await this.databases.updateDocument(
-                config.appwriteDatebaseId,
+                config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug,
                 {
                     title,
                     content,
-                    featuredImage,
+                    featuredimage: featuredImage,
                     status   
                 }
             )
@@ -61,7 +62,7 @@ export class Services{
     async deletePost (slug){
         try {
             await this.databases.deleteDocument(
-                config.appwriteDatebaseId,
+                config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug
             )
@@ -76,7 +77,7 @@ export class Services{
     async getPost(slug){
         try {
             return await this.databases.getDocument(
-                config.appwriteDatebaseId,
+                config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug
             )
@@ -89,23 +90,44 @@ export class Services{
         }
     }
 
-    async getPosts (queries = [Query.equal("status","active")]){
-        try {
-            return await this.databases.listDocuments(
-                config.appwriteDatebaseId,
-                config.appwriteCollectionId,
-                queries
-            )
-            
-        } catch (error) {
-            console.log("Error of the getPosts" ,error);
-            return false
-            
-            
-        }
+// Get all active posts (public feed)
+// async getPosts() {
+//   try {
+//     const queries = [Query.equal("status", "active")];
+//     return await this.databases.listDocuments(
+//       config.appwriteDatabaseId,
+//       config.appwriteCollectionId,
+//       queries
+//     );
+//   } catch (error) {
+//     console.log("Error of the getPosts", error);
+//     return false;
+//   }
+// }
 
-
+getPosts(userId = null, status = 'active') {
+  try {
+    const queries = [Query.equal('status', status)];
+    if (userId) {
+      queries.push(Query.equal('userid', userId));
     }
+
+    return this.databases.listDocuments(
+      config.appwriteDatabaseId,
+      config.appwriteCollectionId,
+      queries
+    );
+  } catch (error) {
+    console.log("Error of the getPosts", error);
+    return false;
+  }
+}
+
+
+
+
+
+   
         
     // File upload Service 
     async uploadFile(file) {
@@ -131,17 +153,16 @@ export class Services{
                 config.appwriteBucketId,
                 fileId
             )
-            return true
+            
             
         } catch (error) {
-            console.log("Error of the deleteFile" ,error);
-            
-            
+            console.log("Error of the deleteFile" ,error);   
+
         }
     }
 
     getFilePreview(fileId){
-        return this.bucket.getFilePreview(
+        return this.bucket.getFileView(
             config.appwriteBucketId,
             fileId
         )

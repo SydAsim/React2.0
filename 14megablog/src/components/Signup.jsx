@@ -1,10 +1,10 @@
 import React, { useDebugValue } from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Button, Input, Logo, Navigate } from 'react-router-dom'
-import { useform } from 'react-hook-form'
+import { Button, Input, Logo } from './index'
+import { useForm } from 'react-hook-form'
 import authService from '../appwrite/auth'
-import { login } from './store/authSlice'
+import { login } from '../store/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 
 
@@ -12,23 +12,23 @@ const Signup = () => {
     const [error, setError] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { register, handleSubmit } = useform()
-
-    const create = async (data) => {
-        setError("")
-        try {
-            const userData = await authService.createAccount(data)
-            if (userData) {
-                const userData = await authService.getCurrentUser()
-                if (userData) dispatch(login(userData))
-                navigate('/')
-            }
-
-        } catch (error) {
-            setError(error.message)
-
-        }
+    const { register, handleSubmit } = useForm()
+const create = async (data) => {
+  setError("");
+  try {
+    const account = await authService.createAccount(data);
+    if (account) {
+      const userData = await authService.getCurrentUser();
+      if (userData) {
+        dispatch(login({ userData }));  // ✅ FIXED
+        navigate('/');
+      }
     }
+  } catch (error) {
+    setError(error.message);
+  }
+};
+
 
     return (
         <div className="flex items-center justify-center">
@@ -55,8 +55,8 @@ const Signup = () => {
                     <div>
                         <Input
                             label="Full Name: "
-                            placholder="Enter your full name"
-                            {...register("name" {
+                            placeholder="Enter your full name"
+                            {...register("name", {
                                 required: true,
 
                             })}
@@ -70,8 +70,8 @@ const Signup = () => {
                                 required: true,
                                 // Email validation throug Ragex 
                                 // jo bhi value ayegi woh iss expression say test hongi 
-                                Validate: {
-                                    matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+                                validate: {
+                                    matchPattern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
                                         .test(value) || "Enter address must be valid Email address ",
                                 }
                             })}
@@ -80,7 +80,7 @@ const Signup = () => {
                         <Input
                         label = "Password"
                         type ='password'
-                        placholder ="Enter your password "
+                        placeholder ="Enter your password "
                         {...register ( "password" ,{
                             required : true
                         })}

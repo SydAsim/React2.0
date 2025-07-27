@@ -1,24 +1,20 @@
-import React from 'react'
-import {useDispatch} from 'react-redux'
-import Service from '../../appwrite/conf'
-import {logout} from '../../store/authSlice'
+import React from 'react';
+import authService from '../../appwrite/auth';
 
-const Logoutbtn = () => {
-    const dispatch = useDispatch()
+function Logoutbtn() {
+  const handleLogout = async () => {
+    await authService.logout();
+    window.location.reload();  // 🔁 Simple full page reload
+  };
 
-    // method Logouthandler
-    const Logouthandler = ()=>{
-        Service.logout.then(()=>{
-            dispatch(logout())
-        })
-        
-    }
   return (
-    <button className='inline-block px-6 py-2
-    duration-200 hover:bg-blue-100 rounded-full'>
-        Logout
+    <button
+      className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+      onClick={handleLogout}
+    >
+      Logout
     </button>
-  )
+  );
 }
 
-export default Logoutbtn
+export default Logoutbtn;
